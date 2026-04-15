@@ -3,30 +3,22 @@ import { Button } from "./ui/button";
 
 const suggestions = [
   {
-    text: "Get the latest Vercel blog post",
-    prompt: "Go to vercel.com/blog and get the latest post",
+    text: "What's the weather in Dubai?",
+    prompt: "What's the weather in Dubai? Please use the browser to verify it.",
   },
-  // {
-  //   text: "search google for cute dogs",
-  //   prompt: "Launch browser and search Google for labradoodle puppies. Show me images.",
-  // },
   {
-    text: "Create a new text file",
-    prompt: "Open a text editor and create a new file called notes.txt and write 'we are so back!'",
+    text: "Summarize this screen",
+    prompt: "Take a screenshot of the current screen and summarize what you see.",
   },
-  // {
-  //   text: "Check system memory usage",
-  //   prompt: "Run the top command to show system resource usage",
-  // },
   {
-    text: "Get the latest rauchg tweet",
-    prompt: "Go to twitter.com/rauchg and get the latest tweet",
+    text: "Create a notes file",
+    prompt:
+      "Open a text editor, create a file called notes.txt, and write 'AI Agent Dashboard challenge ready'.",
   },
-  // {
-  //   text: "What do you see",
-  //   prompt:
-  //     "Capture a screenshot of the current screen and tell me what you see",
-  // },
+  {
+    text: "Open Vercel changelog",
+    prompt: "Go to vercel.com/changelog and tell me the latest item on the page.",
+  },
 ];
 
 export const PromptSuggestions = ({

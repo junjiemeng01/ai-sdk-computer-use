@@ -12,9 +12,9 @@ export const ProjectInfo = () => {
           <span>+</span>
           <ComputerIcon />
         </p>
-        <h3 className="text-center text-2xl font-bold">Computer Use Agent</h3>
+        <h3 className="text-center text-2xl font-bold">AI Agent Dashboard</h3>
         <p>
-          This demo showcases a Computer Use Agent built with the{" "}
+          This dashboard showcases a production-style computer-use agent built with the{" "}
           <StyledLink href="https://sdk.vercel.ai">AI SDK</StyledLink>,{" "}
           <StyledLink href="https://www.anthropic.com/claude/sonnet">
             Anthropic Claude Sonnet 4.5
@@ -23,10 +23,12 @@ export const ProjectInfo = () => {
           <StyledLink href="https://vercel.com/docs/vercel-sandbox">
             Vercel Sandboxes
           </StyledLink>
-          .
+          , and a typed event pipeline for tool-call visibility.
         </p>
         <p>
-          {" "}
+          Use the chat to drive the browser, inspect tool calls inline, open detailed results on the right, and switch between saved sessions as you test workflows.
+        </p>
+        <p>
           Learn more about{" "}
           <Link
             className="text-blue-500 dark:text-blue-400"
@@ -59,10 +61,6 @@ const StyledLink = ({
     </Link>
   );
 };
-
-// const Code = ({ text }: { text: string }) => {
-//   return <code className="">{text}</code>;
-// };
 
 export const DeployButton = () => {
   return (

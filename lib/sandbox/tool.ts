@@ -1,4 +1,9 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { createAnthropic } from "@ai-sdk/anthropic";
+
+const anthropic = createAnthropic({
+  baseURL: process.env.ANTHROPIC_BASE_URL,
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
 import { getDesktop } from "./utils";
 
 const wait = async (seconds: number) => {
@@ -57,7 +62,7 @@ function mapKey(key: string): string {
   return keyMap[key.toLowerCase()] || keyMap[key] || key;
 }
 
-export const computerTool = (sandboxId: string) =>
+export const computerTool = (sandboxId?: string | null) =>
   anthropic.tools.computer_20250124({
     displayWidthPx: resolution.x,
     displayHeightPx: resolution.y,
@@ -71,7 +76,7 @@ export const computerTool = (sandboxId: string) =>
       scroll_direction,
       start_coordinate,
     }) => {
-      const sandbox = await getDesktop(sandboxId);
+      const sandbox = await getDesktop(sandboxId ?? undefined);
 
       switch (action) {
         case "screenshot": {
@@ -245,10 +250,10 @@ export const computerTool = (sandboxId: string) =>
     },
   });
 
-export const bashTool = (sandboxId?: string) =>
+export const bashTool = (sandboxId?: string | null) =>
   anthropic.tools.bash_20250124({
     execute: async ({ command }) => {
-      const sandbox = await getDesktop(sandboxId);
+      const sandbox = await getDesktop(sandboxId ?? undefined);
 
       try {
         const result = await sandbox.runCommand({

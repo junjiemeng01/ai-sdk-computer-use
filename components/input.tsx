@@ -1,12 +1,13 @@
 import { ArrowUp } from "lucide-react";
 import { Input as ShadcnInput } from "./ui/input";
+import type { ChatStatus } from "@/lib/types";
 
 interface InputProps {
   input: string;
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isInitializing: boolean;
   isLoading: boolean;
-  status: string;
+  status: ChatStatus;
   stop: () => void;
 }
 

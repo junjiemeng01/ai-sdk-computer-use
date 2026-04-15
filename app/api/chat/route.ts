@@ -1,15 +1,22 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { createAnthropic } from "@ai-sdk/anthropic";
 import { streamText, UIMessage } from "ai";
 import { killDesktop } from "@/lib/sandbox/utils";
 import { bashTool, computerTool } from "@/lib/sandbox/tool";
 import { prunedMessages } from "@/lib/utils";
 
+const anthropic = createAnthropic({
+  baseURL: process.env.ANTHROPIC_BASE_URL,
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 300;
 
 export async function POST(req: Request) {
-  const { messages, sandboxId }: { messages: UIMessage[]; sandboxId: string } =
-    await req.json();
+  const {
+    messages,
+    sandboxId,
+  }: { messages: UIMessage[]; sandboxId?: string | null } = await req.json();
   try {
     const result = streamText({
       model: anthropic("claude-sonnet-4-5-20250929"), // Using Sonnet for computer use
@@ -26,19 +33,19 @@ export async function POST(req: Request) {
       },
     });
 
-    // Create response stream
-    const response = result.toDataStreamResponse({
-      // @ts-expect-error eheljfe
-      getErrorMessage(error) {
+    return result.toDataStreamResponse({
+      getErrorMessage(error: unknown) {
         console.error(error);
-        return error;
+        return error instanceof Error ? error.message : "Unknown error";
       },
     });
-
-    return response;
   } catch (error) {
     console.error("Chat API error:", error);
-    await killDesktop(sandboxId); // Force cleanup on error
+
+    if (sandboxId) {
+      await killDesktop(sandboxId);
+    }
+
     return new Response(JSON.stringify({ error: "Internal Server Error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
