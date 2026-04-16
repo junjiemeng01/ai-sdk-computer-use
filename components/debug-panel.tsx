@@ -17,13 +17,7 @@ const statusColors: Record<EventStore["agentStatus"], string> = {
 };
 
 function formatTs(ts: number): string {
-  return new Intl.DateTimeFormat("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZone: "UTC",
-  }).format(new Date(ts));
+  return new Date(ts).toLocaleTimeString("en-US", { hour12: false });
 }
 
 const eventTypeOrder: AgentEvent["type"][] = [
