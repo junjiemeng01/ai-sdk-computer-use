@@ -54,6 +54,16 @@ function formatDuration(ms?: number): string {
   return `${(ms / 1000).toFixed(1)}s`;
 }
 
+function formatTimestamp(ts: number): string {
+  return new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+    timeZone: "UTC",
+  }).format(new Date(ts));
+}
+
 export function ToolCallDetail({
   event,
   systemIssue,
@@ -118,7 +128,7 @@ export function ToolCallDetail({
         </div>
         <div className="bg-zinc-50 dark:bg-zinc-900 rounded p-2 col-span-2">
           <div className="text-zinc-500 mb-1">Timestamp</div>
-          <div className="font-mono">{new Date(event.timestamp).toLocaleTimeString()}</div>
+          <div className="font-mono">{formatTimestamp(event.timestamp)}</div>
         </div>
       </div>
 

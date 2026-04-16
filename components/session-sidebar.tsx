@@ -16,8 +16,11 @@ interface SessionSidebarProps {
 }
 
 function formatDate(ts: number): string {
-  const d = new Date(ts);
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(ts));
 }
 
 export function SessionSidebar({

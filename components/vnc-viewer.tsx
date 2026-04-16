@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useRef } from "react";
+import { memo } from "react";
 import { Button } from "@/components/ui/button";
 
 interface VncViewerProps {
@@ -16,9 +16,6 @@ const PureVncViewer = ({
   errorMessage,
   onRefresh,
 }: VncViewerProps) => {
-  const renderCountRef = useRef(0);
-  renderCountRef.current += 1;
-
   return (
     <div className="relative h-full bg-black flex items-center justify-center">
       {streamUrl ? (
@@ -55,11 +52,6 @@ const PureVncViewer = ({
           {isInitializing ? "Initializing desktop..." : "Loading stream..."}
         </div>
       )}
-      {process.env.NODE_ENV !== "production" ? (
-        <div className="absolute bottom-2 left-2 rounded bg-black/60 px-2 py-1 text-[11px] font-mono text-white/80">
-          VNC renders: {renderCountRef.current}
-        </div>
-      ) : null}
     </div>
   );
 };
